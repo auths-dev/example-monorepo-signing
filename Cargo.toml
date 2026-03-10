@@ -1,0 +1,4 @@
+[package]
+name = "example-monorepo-signing"
+version = "0.1.0"
+edition = "2021"

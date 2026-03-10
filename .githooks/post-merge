@@ -1,0 +1,11 @@
+#!/bin/bash
+# Post-merge hook: auto-sync allowed_signers after pulling changes.
+# Ensures your local allowed_signers file stays up to date.
+
+if command -v auths &> /dev/null; then
+    echo "Syncing allowed signers..."
+    auths signers sync --output .auths/allowed_signers
+else
+    echo "Note: auths CLI not found. Install it to auto-sync allowed signers."
+    echo "  brew install auths-dev/auths-cli/auths"
+fi

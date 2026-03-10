@@ -1,0 +1,18 @@
+#!/bin/bash
+# Pre-commit hook: warns if commit signing is not configured.
+# This hook does NOT block commits — it only prints a warning.
+
+SIGNING_ENABLED=$(git config --get commit.gpgsign 2>/dev/null)
+
+if [ "$SIGNING_ENABLED" != "true" ]; then
+    echo ""
+    echo "WARNING: Commit signing is not enabled."
+    echo "Your commit will NOT be signed."
+    echo ""
+    echo "To enable signing, run:"
+    echo "  auths git setup"
+    echo ""
+    echo "Or manually configure Git:"
+    echo "  git config commit.gpgsign true"
+    echo ""
+fi

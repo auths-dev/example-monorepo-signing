@@ -1,0 +1,32 @@
+name: Sync Allowed Signers
+on:
+  schedule:
+    - cron: '0 2 * * *' # 2am UTC daily
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install auths
+        run: |
+          curl -sSL https://github.com/auths-dev/auths/releases/latest/download/auths-x86_64-unknown-linux-gnu.tar.gz | tar xz
+          sudo mv auths /usr/local/bin/
+
+      - name: Sync signers
+        run: auths signers sync --output .auths/allowed_signers
+
+      - name: Commit if changed
+        run: |
+          git diff --quiet .auths/allowed_signers || {
+            git config user.name "auths-bot"
+            git config user.email "bot@auths.dev"
+            git add .auths/allowed_signers
+            git commit -m "chore: sync allowed signers"
+            git push
+          }

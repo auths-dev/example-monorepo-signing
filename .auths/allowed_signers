@@ -1,0 +1,12 @@
+# Auths allowed signers file
+# Format: <email> ssh-ed25519 <public-key>
+# Managed by `auths signers sync` — do not edit manually unless adding a new signer.
+#
+# To add a team member from GitHub:
+#   auths signers add-from-github <github-username>
+#
+# To sync from the Auths registry:
+#   auths signers sync --output .auths/allowed_signers
+
+alice@example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExampleKeyAliceReplaceMeWithRealKey000000000
+bob@example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExampleKeyBobReplaceMeWithARealKey00000000000
